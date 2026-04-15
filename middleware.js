@@ -4,7 +4,8 @@
 //   console.log(request);
 //   return NextResponse.redirect(new URL("/about", request.url));
 // }
-import { auth } from "../the-wild-oasis-website/app/_lib/auth";
+// import { auth } from "../the-wild-oasis-website/app/_lib/auth";
+import { auth } from "./app/_lib/auth";
 export const middleware = auth;
 export const config = {
   matcher: ["/account"],
