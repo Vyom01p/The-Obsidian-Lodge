@@ -6,7 +6,6 @@ function CabinCard({ cabin }) {
 
   return (
     <div className="flex flex-col border border-primary-800 bg-primary-900/40 backdrop-blur-sm overflow-hidden rounded-sm group">
-      {/* Image Container with Hover Zoom */}
       <div className="relative h-64 overflow-hidden">
         <Image
           src={image}
