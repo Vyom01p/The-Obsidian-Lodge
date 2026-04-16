@@ -5,8 +5,12 @@ import Spinner from "../../_components/Spinner";
 import Cabin from "../../_components/Cabin";
 
 export async function generateMetadata({ params }) {
-  const { name } = await getCabin(params.cabinid);
-  return { title: `Cabin ${name}` };
+  const { cabinId } = await params;
+  const cabin = await getCabin(cabinId);
+
+  if (!cabin) return { title: "Cabin Not Found" };
+
+  return { title: `Cabin ${cabin.name}` };
 }
 
 export async function generateStaticParams() {
@@ -16,7 +20,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
-  const cabin = await getCabin(params.cabinid);
+  const { cabinId } = await params;
+  const cabin = await getCabin(cabinId);
+
+  if (!cabin)
+    return <p className="text-center text-primary-200">Cabin not found.</p>;
 
   return (
     <div className="max-w-6xl mx-auto mt-20">
