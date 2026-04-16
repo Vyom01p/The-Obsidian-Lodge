@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🌐 The Demo & Live Links
+Live Site: https://the-obsidian-lodge27.vercel.app
 
-## Getting Started
+Source Code: (Your GitHub Repository Link)
 
-First, run the development server:
+Tech Stack: Next.js 15, Tailwind CSS, Supabase, Auth.js (NextAuth).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📝 Project "Pitch" (The Copy)
+The Obsidian Lodge is a boutique cabin reservation platform designed for luxury and speed. It bridges the gap between high-end design and complex backend logic.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For Users: It offers a smooth, distraction-free booking flow with Google Authentication.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+For Admins: It provides a robust backend through Supabase to manage pricing, settings, and availability.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+🛠️ Necessary "Under the Hood" Details
 
-## Learn More
+1. The Data Pipeline (Functions)
+   These are the most important functions in your data-service.js that power the app:
 
-To learn more about Next.js, take a look at the following resources:
+getCabin(id): Fetches unique cabin data based on the dynamic URL.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+getBookedDatesByCabinId(id): The most complex logic in the app; it maps existing bookings to a date range to prevent double-booking.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+getSettings(): Controls the "rules" of the lodge (e.g., "Maximum 90 days stay").
 
-## Deploy on Vercel
+2. Authentication Logic
+   NextAuth Google Provider: Handles the "Login with Google" handshake.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Middleware Protection: A middleware.js file ensures that if a user tries to access /account without being logged in, they are immediately bounced to the /login page.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Database Schema
+   You have four primary tables in Supabase:
+
+cabins: Name, capacity, price, discount, and image URL.
+
+guests: Full name, email, and nationality.
+
+bookings: Join table connecting guests and cabins with dates and pricing.
+
+settings: Global constraints for the lodge operations.
+
+⚙️ The "Secret Sauce" (Environment Variables)
+Without these, the project is a "brick." Every deployment needs:
+
+NEXTAUTH_URL: Your live Vercel link.
+
+NEXTAUTH_SECRET: A random string for encrypting cookies.
+
+SUPABASE_SERVICE_ROLE_KEY: Required for server-side operations that bypass RLS.
+
+AUTH_GOOGLE_ID / SECRET: Your credentials from the Google Cloud Console.
+
+🚀 How to Run It Locally
+Clone the repo.
+
+Run npm install.
+
+Create a .env.local file with the variables listed above.
+
+Run npm run dev.
+
+Access the site at http://localhost:3000.
