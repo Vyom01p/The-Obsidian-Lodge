@@ -9,7 +9,6 @@ const authConfig = {
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
-  // ... rest of your code
   callbacks: {
     authorized({ auth, request }) {
       return !!auth?.user;
